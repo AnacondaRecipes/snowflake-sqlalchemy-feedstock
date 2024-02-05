@@ -11,17 +11,19 @@ source:
 
 build:
   number: 0
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  # snowflake-connector-python not built on s390x
+  skip: true  # [py<37 or s390x]
+  script: {{ PYTHON }} -m pip install . -v --no-deps --no-build-isolation
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python
     - setuptools
+    - wheel
   run:
-    - python >=3.6
-    - importlib-metadata
+    - python
+    - importlib-metadata  # [py<38]
     - snowflake-connector-python <4.0.0
     - sqlalchemy <2.0.0,>=1.4.0
 
@@ -39,6 +41,9 @@ about:
   license_family: APACHE
   license_file: LICENSE.txt
   summary: Snowflake SQLAlchemy Dialect
+  description: Snowflake SQLAlchemy runs on the top of the Snowflake Connector for Python as a dialect to bridge a Snowflake database and SQLAlchemy applications.
+  dev_url: https://github.com/snowflakedb/snowflake-sqlalchemy
+  doc_url: https://github.com/snowflakedb/snowflake-sqlalchemy
 
 extra:
   recipe-maintainers:
