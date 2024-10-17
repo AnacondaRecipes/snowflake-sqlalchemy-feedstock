@@ -1,31 +1,29 @@
 {% set name = "snowflake-sqlalchemy" %}
-{% set version = "1.5.1" %}
+{% set version = "1.6.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/snowflake-sqlalchemy-{{ version }}.tar.gz
-  sha256: 4f1383402ffc89311974bd810dee22003aef4af0f312a0fdb55778333ad1abf7
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/snowflake_sqlalchemy-{{ version }}.tar.gz
+  sha256: 792cde928c0d1d30714b88b0404de81ed297a7745cbcc253dcda973f65759382
 
 build:
   number: 0
   # snowflake-connector-python not built on s390x
-  skip: true  # [py<37 or s390x]
+  skip: true  # [py<38 or s390x]
   script: {{ PYTHON }} -m pip install . -v --no-deps --no-build-isolation
 
 requirements:
   host:
     - pip
     - python
-    - setuptools
-    - wheel
+    - hatchling
   run:
     - python
-    - importlib-metadata  # [py<38]
     - snowflake-connector-python <4.0.0
-    - sqlalchemy <2.0.0,>=1.4.0
+    - sqlalchemy >=1.4.19
 
 test:
   imports:
@@ -43,7 +41,7 @@ about:
   summary: Snowflake SQLAlchemy Dialect
   description: Snowflake SQLAlchemy runs on the top of the Snowflake Connector for Python as a dialect to bridge a Snowflake database and SQLAlchemy applications.
   dev_url: https://github.com/snowflakedb/snowflake-sqlalchemy
-  doc_url: https://github.com/snowflakedb/snowflake-sqlalchemy
+  doc_url: https://docs.snowflake.com/developer-guide/python-connector/sqlalchemy
 
 extra:
   recipe-maintainers:
