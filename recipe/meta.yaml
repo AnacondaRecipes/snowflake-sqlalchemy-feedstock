@@ -26,12 +26,16 @@ requirements:
     - sqlalchemy >=1.4.19
 
 test:
+  source_files:
+    - tests
   imports:
     - snowflake.sqlalchemy
   requires:
     - pip
+    - pytest
   commands:
     - python -m pip check
+    - pytest tests
 
 about:
   home: https://github.com/snowflakedb/snowflake-sqlalchemy
@@ -41,7 +45,7 @@ about:
   summary: Snowflake SQLAlchemy Dialect
   description: Snowflake SQLAlchemy runs on the top of the Snowflake Connector for Python as a dialect to bridge a Snowflake database and SQLAlchemy applications.
   dev_url: https://github.com/snowflakedb/snowflake-sqlalchemy
-  doc_url: https://github.com/snowflakedb/snowflake-sqlalchemy
+  doc_url: https://docs.snowflake.com/developer-guide/python-connector/sqlalchemy
 
 extra:
   recipe-maintainers:
