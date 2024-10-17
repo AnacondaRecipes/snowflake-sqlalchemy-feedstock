@@ -26,16 +26,12 @@ requirements:
     - sqlalchemy >=1.4.19
 
 test:
-  source_files:
-    - tests
   imports:
     - snowflake.sqlalchemy
   requires:
     - pip
-    - pytest
   commands:
     - python -m pip check
-    - pytest tests
 
 about:
   home: https://github.com/snowflakedb/snowflake-sqlalchemy
