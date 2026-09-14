@@ -1,19 +1,18 @@
 {% set name = "snowflake-sqlalchemy" %}
-{% set version = "1.6.1" %}
+{% set version = "1.11.1" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/snowflake_sqlalchemy-{{ version }}.tar.gz
-  sha256: 792cde928c0d1d30714b88b0404de81ed297a7745cbcc253dcda973f65759382
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/snowflake_sqlalchemy-{{ version }}.tar.gz
+  sha256: 942b203de0404b79550c4098ca851aee2b0b22f695426b073e58d71772e38d51
 
 build:
   number: 0
-  # snowflake-connector-python not built on s390x
-  skip: true  # [py<38 or s390x]
   script: {{ PYTHON }} -m pip install . -v --no-deps --no-build-isolation
+  skip: true  # [py<38]
 
 requirements:
   host:
@@ -22,16 +21,16 @@ requirements:
     - hatchling
   run:
     - python
-    - snowflake-connector-python <4.0.0
     - sqlalchemy >=1.4.19
+    - snowflake-connector-python <5.0.0
 
 test:
   imports:
     - snowflake.sqlalchemy
+  commands:
+    - pip check
   requires:
     - pip
-  commands:
-    - python -m pip check
 
 about:
   home: https://github.com/snowflakedb/snowflake-sqlalchemy
